@@ -14,6 +14,18 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
+;; improve compatibility with 'android'
+(when (eq system-type 'android)
+  ;; add termux binaries to 'exec-path'
+  (let ((termuxpath "/data/data/com.termux/files/usr/bin"))
+    (setenv "PATH"
+            (concat
+             (getenv "PATH") ":" termuxpath))
+    (setq exec-path
+          (append exec-path
+                  (list termuxpath))))
+  (setq touch-screen-display-keyboard t))
+
 (doom! :input
        ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
        ;;(chinese +childframe)
